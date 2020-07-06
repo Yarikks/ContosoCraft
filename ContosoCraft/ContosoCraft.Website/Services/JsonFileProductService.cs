@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using ContosoCraft.Website.Models;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ContosoCraft.Website.Services
@@ -21,6 +23,16 @@ namespace ContosoCraft.Website.Services
             get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "products.json"); }
         }
 
-
+        public IEnumerable<Product> GetProducts()
+        {
+            using(var jsonfileReader = File.OpenText(JsonFileName))
+            {
+                return JsonSerializer.Deserialize<Product[]>(jsonfileReader.ReadToEnd(),
+                    new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+            }
+        }
     }
 }
