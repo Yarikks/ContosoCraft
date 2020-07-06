@@ -8,8 +8,14 @@
     <h1 class="display-4">Contoso Crafts</h1>
 </div>
 
-@foreach (var product in Model.Products)
-{
-    <h3>@product.Title</h3>
-
-}
+<div class="card-columns">
+    @foreach (var product in Model.Products)
+    {
+        <div class="card">
+            <div class="card-img" style="background-image:url('@product.Image');"></div>
+            <div class="card-body">
+                <h5>@product.Title</h5>
+            </div>
+        </div>
+    }
+</div>
